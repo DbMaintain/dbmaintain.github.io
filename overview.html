@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DbMaintain - Overview</title>
+    <style type="text/css" media="all">
+      @import url("./css/maven-base.css");
+      @import url("./css/maven-theme.css");
+      @import url("./css/site.css");
+    </style>
+    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
+          </head>
+  <body class="composite">
+    <div id="banner">
+                    <span id="bannerLeft">
+    
+                                            <img src="./images/logos/dbmaintain.gif" alt="" />
+    
+            </span>
+                    <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+        Last Published: 2015-04-17
+                      </div>
+            <div class="xright">            <a href="https://github.com/DbMaintain/dbmaintain" class="externalLink">Github project page</a>
+            
+  
+
+  
+    
+            
+  
+    
+             Version: 2.6.0-SNAPSHOT
+      </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>General</h5>
+            <ul>
+              
+    <li class="none">
+              <strong>Overview</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="https://github.com/DbMaintain/dbmaintain/releases" class="externalLink">Downloads</a>
+          </li>
+              
+    <li class="none">
+                    <a href="https://sourceforge.net/projects/dbmaintain/forums/forum/917034" class="externalLink">Forum</a>
+          </li>
+          </ul>
+              <h5>Documentation</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="tutorial.html">Tutorial</a>
+          </li>
+              
+    <li class="none">
+                    <a href="ant-tasks.html">Ant tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="maven-goals.html">Maven goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="command-line.html">Command line</a>
+          </li>
+              
+    <li class="none">
+                    <a href="configuration.html">Configuration</a>
+          </li>
+              
+    <li class="none">
+                    <a href="apidocs/index.html">API Javadoc</a>
+          </li>
+          </ul>
+              <h5>Project info</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="license.html">License</a>
+          </li>
+              
+    <li class="none">
+                    <a href="https://github.com/orgs/DbMaintain/people" class="externalLink">Team Members</a>
+          </li>
+              
+    <li class="none">
+                    <a href="https://github.com/DbMaintain/dbmaintain/issues" class="externalLink">Issue Tracking</a>
+          </li>
+              
+    <li class="none">
+                    <a href="source-repository.html">Source Repository</a>
+          </li>
+              
+    <li class="none">
+                    <a href="acknowledgements.html">Acknowledgements</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="./images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Overview</h2>
+<p>DbMaintain enables automatic roll-out of updates to a relational database. It brings database scripts into version control just like regular source code and can be used to transparently deploy databases from development to production. DbMaintain automates the part of the deployment which is most difficult to automate, opening the door for fully automated deployments in all stages of development.</p>
+<p>You no longer have to keep track of which database updates have been deployed on which database - DbMaintain does this for you. The database itself keeps track of the scripts that have been applied. A checksum is stored for each script that to ensure nothing has changed to the scripts that were already applied.</p>
+<p>Updates are performed incrementally: Only what has been changed since the last deployment is applied. Features such as repeatable scripts, postprocessing scripts, multi-database / database user support and support for patches turn DbMaintain into a complete solution for the enterprise.</p>
+<p>DbMaintain integrates seamlessly with <a class="externalLink" href="http://www.unitils.org">Unitils</a>, an open source library for writing automated tests. With unitils you can easily test your application's database integration layer while you develop it, relying on DbMaintain for managing the test database.</p>
+<div class="section"><h3>Where to start</h3>
+<ul><li>An overview of the features and how to configure and use them is available as a <a href="tutorial.html"> tutorial</a>.</li>
+<li>If you are using ant, an overview of the available ant tasks can be found on the <a href="ant-tasks.html"> ant tasks</a> page.</li>
+<li>If you are using maven, an overview of the available maven goals can be found on the <a href="maven-goals.html"> maven goals</a> page.</li>
+<li>The <a href="command-line.html"> command line</a> page gives an overview on how to launch DbMaintain from the command line.</li>
+<li>Finally, the <a href="configuration.html"> configuration </a> page gives an overview of all possible configuration settings.</li>
+</ul>
+</div>
+<div class="section"><h3>News</h3>
+<div class="section"><h4><b>2011-07-20 - Release of DbMaintain 2.4</b></h4>
+<p>This release contains some important fixes for the parsing of oracle PL-SQL. By default dbmaintain also no longer outputs the full script content when a failure occurs. This can be re-enabled by setting the dbMaintainer.maxNrOfCharsWhenLoggingScriptContent property.</p>
+<p>Check the <a class="externalLink" href="http://jira.unitils.org/secure/ReleaseNote.jspa?projectId=10010&amp;version=10080">release notes</a> for more details.</p>
+</div>
+<div class="section"><h4><b>2011-05-12 - Release of DbMaintain 2.3</b></h4>
+<p>This release contains some important fixes when working with multiple databases. We've resolved some problems that occurred when configuring a named database and fixed the behavior of the disabled property.</p>
+<p>Check the <a class="externalLink" href="http://jira.unitils.org/secure/ReleaseNote.jspa?projectId=10010&amp;version=10070">release notes</a> for more details.</p>
+</div>
+<div class="section"><h4><b>2011-05-04 - Release of DbMaintain 2.2</b></h4>
+<p>In this release, we've added spring support, fixed some small issues and performed internal refactorings for better integration with unitils.</p>
+<p>Check the <a class="externalLink" href="http://jira.unitils.org/secure/ReleaseNote.jspa?projectId=10010&amp;version=10060">release notes</a> for more details.</p>
+</div>
+<div class="section"><h4><b>2010-10-07 - Release of DbMaintain 2.1</b></h4>
+<p>This release contains a fix for the from-scratch behavior and some small improvements:</p>
+<ul><li>the database dialect will now be autodetected from the jdbc url and is no longer a required property</li>
+<li>the file name patterns are now configurable using regular expressions</li>
+<li>failed post-processing scripts will always be run again at the next update</li>
+</ul>
+<p>Check the <a class="externalLink" href="http://jira.unitils.org/secure/ReleaseNote.jspa?projectId=10010&amp;version=10050">release notes</a> for more details.</p>
+</div>
+<div class="section"><h4><b>2010-08-16 - Release of DbMaintain 2.0</b></h4>
+<p>Two new operations have been introduced: markErrorScriptPerformed and markErrorScriptReverted that can be used when a script execution fails. See the tutorial for more info on these operations.</p>
+<p>Extra database support was added: PL-SQL parsing for DB2 and MySQL and the possibility to use the native script runners for Oracle (SQL*Plus) and DB2 (db2 CLP).</p>
+<p>A baseline revision concept has been added, giving the possibility to ignore all scripts before this baseline. This could be handy if the database starts from an pre-existing image. You then only have to deal with the deltas starting from this version.</p>
+<p>Check the <a class="externalLink" href="http://jira.unitils.org/secure/ReleaseNote.jspa?projectId=10010&amp;version=10040">release notes</a> for more details.</p>
+</div>
+<div class="section"><h4><b>2010-04-25: Release of DbMaintain 1.1</b></h4>
+<p>DbMaintain 1.1 has been released. It's most important feature is the support for script qualifiers, which enables including or excluding certain scripts from execution depending on the target environment. Another feature is the possibility to execute scripts native tools such as sqlplus for oracle and clp for db2. The release also includes a number of bug fixes and patches. A complete list of changes can be found in the <a class="externalLink" href="http://jira.dbmaintain.org/secure/ReleaseNote.jspa?projectId=10010&amp;styleName=Html&amp;version=10021">release notes</a>.</p>
+</div>
+<div class="section"><h4><b>2009-02-21: Release of DbMaintain 1.0</b></h4>
+<p>We're proud to announce the release 1.0 of DbMaintain, and the publication of the website. Thanks to everybody who's contributed or provided feedback.</p>
+</div>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2015
+    
+          
+  
+
+  
+    
+            
+  
+    
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+</html>
