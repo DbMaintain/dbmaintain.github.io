@@ -321,7 +321,7 @@ For example, suppose you have following structure:</p>
 <span class="nt">&lt;/updateDatabase&gt;</span></code></pre></div>
 <p>For an overview of all ant tasks with all their attributes, refer to the <a href="./ant-tasks">ant-tasks</a> page.</p>
 
-<h3 id="from-java-code">From Java code}</h3>
+<h3 id="from-java-code">From Java Code</h3>
 
 <p>To launch DbMaintain operations from Java code, first create an instance of `org.dbmaintain.MainFactory&gt; and then use that factory to create the DbMaintain, ConstraintsDisabler, etc instances.</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">URL</span> <span class="n">configurationUrl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;dbmaintain.properties&#34;</span><span class="o">).</span><span class="na">toURI</span><span class="o">().</span><span class="na">toURL</span><span class="o">();</span>
@@ -329,7 +329,7 @@ For example, suppose you have following structure:</p>
 <span class="n">DbMaintainer</span> <span class="n">dbMaintainer</span> <span class="o">=</span> <span class="n">createDbMaintainer</span><span class="o">()</span></code></pre></div>
 <p>To perform a database update simply call:</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">dbMaintainer</span><span class="o">.</span><span class="na">updateDatabase</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span></code></pre></div>
-<h3 id="configure-the-database-s">Configure the database(s)</h3>
+<h3 id="configure-the-database-s">Configure the Database(s)</h3>
 
 <p>DbMaintain can be configured with one or more databases. If you use more than one database, the target database has to be specified in the script (see <a href="#multi-database-user-support">Multi-database / user support</a>). To configure a single database in a properties file, add following properties:</p>
 <div class="highlight"><pre class="chroma"><code class="language-properties" data-lang="properties">database.driverClassName=&lt;fully qualified JDBC driver class name&gt;
@@ -391,11 +391,11 @@ database.read.schemaNames=read</code></pre></div>
 
 <h1 id="clear-the-database">Clear the Database</h1>
 
-<p>This operation removes all database objects from the database, such as tables, views, sequences, synonyms and triggers. The database schemas will be left untouched: this way, you can immediately start an update afterwards. This operation is also called when a from-scratch update is performed. The table dbmaintain_scripts is not dropped but all data in it is removed. It&rsquo;s possible to exclude certain database objects to make sure they are not dropped, like described in <a href="#Preserve_database_objects">Preserve database objects</a>.</p>
+<p>This operation removes all database objects from the database, such as tables, views, sequences, synonyms and triggers. The database schemas will be left untouched: this way, you can immediately start an update afterwards. This operation is also called when a from-scratch update is performed. The table dbmaintain_scripts is not dropped but all data in it is removed. It&rsquo;s possible to exclude certain database objects to make sure they are not dropped, like described in <a href="#preserve-database-objects">Preserve database objects</a>.</p>
 
 <h1 id="clean-the-database">Clean the Database</h1>
 
-<p>If you want to remove all existing data from the tables in your database, you can call the cleanDatabase operation. The data from the table dbmaintain_script is not deleted. It&rsquo;s possible to preserve data from certain tables, like described in <a href="#Preserve_database_objects">Preserve database objects</a>. The updateDatabase operation offers an option to automatically clean the database before doing an update.</p>
+<p>If you want to remove all existing data from the tables in your database, you can call the cleanDatabase operation. The data from the table dbmaintain_script is not deleted. It&rsquo;s possible to preserve data from certain tables, like described in <a href="#preserve-database-objects">Preserve database objects</a>. The updateDatabase operation offers an option to automatically clean the database before doing an update.</p>
 
 <h1 id="disable-constraints">Disable Constraints</h1>
 
