@@ -52,7 +52,7 @@
 
 <h1 id="createscriptarchive">createScriptArchive</h1>
 
-<p>Task that enables creating a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</p>
+<p>Creates a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</p>
 
 <p>The created jar file will contain all configuration concerning the scripts in the META-INF folder.</p>
 
@@ -155,7 +155,7 @@ to the build.</p>
    <span class="nt">&lt;/project&gt;</span></code></pre></div>
 <h1 id="updatedatabase">updateDatabase</h1>
 
-<p>Task that updates the database to the latest version.</p>
+<p>Updates the database to the latest version.</p>
 
 <p>One or more <a href="#database-configuration-element">databases</a> must be specified as child elements.</p>
 
@@ -403,7 +403,7 @@ to the build.</p>
 <span class="nt">&lt;/project&gt;</span></code></pre></div>
 <h1 id="markdatabaseasuptodate">markDatabaseAsUpToDate</h1>
 
-<p>This operation updates the state of the database to indicate that all scripts have been executed, without actually
+<p>Updates the state of the database to indicate that all scripts have been executed, without actually
 executing them. This can be useful when you want to start using DbMaintain on an existing database, or after having
 fixed a problem directly on the database.</p>
 
@@ -667,7 +667,7 @@ if it appears that an irregular script update was performed.</p>
  <span class="nt">&lt;/project&gt;</span> </code></pre></div>
 <h1 id="cleardatabase">clearDatabase</h1>
 
-<p>Task that removes all database items like tables, views etc from the database and empties the DBMAINTAIN_SCRIPTS table.</p>
+<p>Removes all database items like tables, views etc from the database and empties the DBMAINTAIN_SCRIPTS table.</p>
 
 <p>One or more <a href="#database-configuration-element">databases</a> must be specified as child elements.</p>
 
@@ -712,7 +712,7 @@ if it appears that an irregular script update was performed.</p>
 <span class="nt">&lt;/project&gt;</span></code></pre></div>
 <h1 id="cleandatabase">cleanDatabase</h1>
 
-<p>Task that removes the data of all database tables, except for the <code>DBMAINTAIN_SCRIPTS</code> table.</p>
+<p>Removes the data of all database tables, except for the <code>DBMAINTAIN_SCRIPTS</code> table.</p>
 
 <p>One or more <a href="#database-configuration-element">databases</a> must be specified as child elements.</p>
 
@@ -757,7 +757,7 @@ if it appears that an irregular script update was performed.</p>
 <span class="nt">&lt;/project&gt;</span></code></pre></div>
 <h1 id="disableconstraints">disableConstraints</h1>
 
-<p>Task that disables or drops all foreign key and not null constraints.</p>
+<p>Disables or drops all foreign key and not null constraints.</p>
 
 <p>One or more <a href="#database-configuration-element">databases</a> must be specified as child elements.</p>
 
@@ -802,7 +802,7 @@ if it appears that an irregular script update was performed.</p>
 <span class="nt">&lt;/project&gt;</span></code></pre></div>
 <h1 id="updatesequences">updateSequences</h1>
 
-<p>Task that updates all sequences and identity columns to a minimum value.</p>
+<p>Updates all sequences and identity columns to a minimum value.</p>
 
 <p>One or more <a href="#database-configuration-element">databases</a> must be specified as child elements.</p>
 
@@ -861,7 +861,7 @@ if it appears that an irregular script update was performed.</p>
        <span class="nt">&lt;/plugins&gt;</span>
    <span class="nt">&lt;/build&gt;</span>
 <span class="nt">&lt;/project&gt;</span></code></pre></div>
-<h1 id="database-configuration-element">Database configuration element</h1>
+<h1 id="database-configuration-element">Database Configuration Element</h1>
 
 <table>
 <thead>

@@ -61,7 +61,7 @@ SQL_SVN_URL A subversion URL given to the container results in a svn export to /
       <guid>https://dbmaintain.github.io/docs/maven-goals/</guid>
       <description>This page gives an overview of the different maven goals and their configuration.
  createScriptArchive updateDatabase markErrorScriptPerformed markErrorScriptReverted
- markDatabaseAsUpToDate checkScriptUpdates clearDatabase cleanDatabase disableConstraints updateSequences  createScriptArchive Task that enables creating a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</description>
+ markDatabaseAsUpToDate checkScriptUpdates clearDatabase cleanDatabase disableConstraints updateSequences  createScriptArchive Creates a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</description>
     </item>
     
     <item>
