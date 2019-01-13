@@ -62,7 +62,7 @@
 </ul></li>
 </ul></li>
 
-<li><p><a href="#dbmaintain-operations">DbMaintain operations</a></p>
+<li><p><a href="#dbmaintain-operations">DbMaintain Operations</a></p>
 
 <ul>
 <li><a href="#create-a-script-archive">Create a script archive</a></li>
@@ -135,7 +135,7 @@
 <p>A typical setup would be to let your build system (eg Hudson) create a scripts archive during the build along with all the other artifacts. The same scripts archive can then be rolled out on your development, system test, acceptance and production environments. Just use the updateDatabase task and DbMaintain will examine the current state of the target database and executed the appropriate scripts on them.</p>
 
 <p>Use the createScriptArchive task to create a scripts jar. You can then specify the jar as script location for the other tasks.
-See the {{{ant-tasks.html} ant tasks}} and {{{maven-goals.html} maven goals}} for examples and more info on the available parameters.</p>
+See the <a href="./ant-tasks">ant-tasks</a> and <a href="./maven-goals">maven-goals</a> for examples and more info on the available parameters.</p>
 
 <h3 id="multi-database-user-support">Multi-Database / User Support</h3>
 
@@ -305,7 +305,7 @@ For example, suppose you have following structure:</p>
 
 <p>If a file named dbmaintain.properties is available in the execution directory, this file is automatically loaded. To load another file, add -config path/to/configFile to the command.</p>
 
-<p>You can get an overview of all available command line operations and their usage by simply executing dbmaintain.sh/bat with no arguments.</p>
+<p>You can get an overview of all available command line operations and their usage by simply executing <code>dbmaintain.sh/bat</code>^ with no arguments.</p>
 
 <h3 id="using-ant">Using ant</h3>
 
@@ -319,7 +319,7 @@ For example, suppose you have following structure:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;updateDatabase</span> <span class="na">scriptLocations=</span><span class="s">&#34;${database.archive}&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;org.hsqldb.jdbcDriver&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:hsqldb:mem:mydb&#34;</span> <span class="na">userName=</span><span class="s">&#34;admin&#34;</span> <span class="na">password=</span><span class="s">&#34;pwd&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;PUBLIC&#34;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/updateDatabase&gt;</span></code></pre></div>
-<p>For an overview of all ant tasks with all their attributes, refer to the {{{ant-tasks.html}ant tasks}} page.</p>
+<p>For an overview of all ant tasks with all their attributes, refer to the <a href="./ant-tasks">ant-tasks</a> page.</p>
 
 <h3 id="from-java-code">From Java code}</h3>
 
@@ -331,7 +331,7 @@ For example, suppose you have following structure:</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">dbMaintainer</span><span class="o">.</span><span class="na">updateDatabase</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span></code></pre></div>
 <h3 id="configure-the-database-s">Configure the database(s)</h3>
 
-<p>DbMaintain can be configured with one or more databases. If you use more than one database, the target database has to be specified in the script (see <a href="#Multi-database__user_support">Multi-database / user support</a>). To configure a single database in a properties file, add following properties:</p>
+<p>DbMaintain can be configured with one or more databases. If you use more than one database, the target database has to be specified in the script (see <a href="#multi-database-user-support">Multi-database / user support</a>). To configure a single database in a properties file, add following properties:</p>
 <div class="highlight"><pre class="chroma"><code class="language-properties" data-lang="properties">database.driverClassName=&lt;fully qualified JDBC driver class name&gt;
 database.url=&lt;database URL&gt;
 database.userName=&lt;database username&gt;
@@ -363,7 +363,7 @@ database.read.schemaNames=read</code></pre></div>
 
 <h2 id="dbmaintain-operations">DbMaintain Operations</h2>
 
-<p>Whether you launch DbMaintain from the command line, using ant or directly from Java code, the same set of operations is exposed. See the {{{ant-tasks.html} ant tasks}} and {{{maven-goals.html} maven goals}} for examples and more info on the available parameters.</p>
+<p>Whether you launch DbMaintain from the command line, using ant or directly from Java code, the same set of operations is exposed. See the <a href="./ant-tasks">ant-tasks</a> and <a href="./maven.goals">maven-goals</a> for examples and more info on the available parameters.</p>
 
 <h1 id="create-a-script-archive">Create a script archive</h1>
 
@@ -371,7 +371,7 @@ database.read.schemaNames=read</code></pre></div>
 
 <h1 id="update-the-database">Update the Database</h1>
 
-<p>This operation can be used to bring the database to the latest version. First it checks which scripts were already applied to the database and executes the new scripts or the updated repeatable scripts. If an existing incremental script was changed, removed, or if a new incremental script has been added with a lower index than one that was already executed, an error is given; unless the <code>fromScratch</code> option is enabled: in that case all database objects are removed and the database is rebuilt from scratch. If there are post-processing scripts, these are always executed at the end.</p>
+<p>Updates the database to the latest version. First it checks which scripts were already applied to the database and executes the new scripts or the updated repeatable scripts. If an existing incremental script was changed, removed, or if a new incremental script has been added with a lower index than one that was already executed, an error is given; unless the <code>fromScratch</code> option is enabled: in that case all database objects are removed and the database is rebuilt from scratch. If there are post-processing scripts, these are always executed at the end.</p>
 
 <h1 id="mark-error-script-performed">Mark error script performed</h1>
 
@@ -383,7 +383,7 @@ database.read.schemaNames=read</code></pre></div>
 
 <h1 id="mark-the-database-as-up-to-date">Mark the database as up-to-date</h1>
 
-<p>This operation updates the state of the database to indicate that all scripts have been executed, without actually executing them. This can be useful when you want to start using DbMaintain on an existing database, or after having fixed a problem directly on the database.</p>
+<p>Updates the state of the database to indicate that all scripts have been executed, without actually executing them. This can be useful when you want to start using DbMaintain on an existing database, or after having fixed a problem directly on the database.</p>
 
 <h1 id="check-script-updates">Check Script Updates</h1>
 
@@ -399,7 +399,7 @@ database.read.schemaNames=read</code></pre></div>
 
 <h1 id="disable-constraints">Disable Constraints</h1>
 
-<p>This operation disables all foreign key, not null and unique constraints. The updateDatabase operation offers an option to automatically disable the constraints after the scripts were executed: This can be useful for a database used to write persistence layer unit tests, to simplify the definition and limit the necessary amount of test data. When using the automatic database update option of <a href="http://www.unitils.org">unitils</a>, which uses DbMaintain, the disable constraints option is enabled by default.</p>
+<p>Disables all foreign key, not null and unique constraints. The updateDatabase operation offers an option to automatically disable the constraints after the scripts were executed: This can be useful for a database used to write persistence layer unit tests, to simplify the definition and limit the necessary amount of test data. When using the automatic database update option of <a href="http://www.unitils.org">unitils</a>, which uses DbMaintain, the disable constraints option is enabled by default.</p>
 
 <h1 id="update-sequences">Update Sequences</h1>
 

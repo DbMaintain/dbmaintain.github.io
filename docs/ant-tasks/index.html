@@ -115,7 +115,7 @@
 
 <p>Task that updates the database to the latest version.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -218,7 +218,7 @@
 
 <p>Task that indicates that the failed script was manually performed. The script will NOT be run again in the next update. No scripts will be executed by this task.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -246,7 +246,7 @@
 
 <p>Task that indicates that the failed script was manually reverted. The script will be run again in the next update. No scripts will be executed by this task.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -277,7 +277,7 @@
 
 <p>This operation updates the state of the database to indicate that all scripts have been executed, without actually executing them. This can be useful when you want to start using DbMaintain on an existing database, or after having fixed a problem directly on the database.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -335,7 +335,7 @@
 
 <p>Performs a dry run of the database update. May be used to verify if there are any updates or in a test that fails if it appears that an irregular script update was performed.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -448,7 +448,7 @@
 
 <p>Task that removes all database items like tables, views etc from the database and empties the DBMAINTAIN_SCRIPTS table.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -476,7 +476,7 @@
 
 <p>Task that removes the data of all database tables, except for the DBMAINTAIN_SCRIPTS table.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -504,7 +504,7 @@
 
 <p>Task that disables or drops all foreign key and not null constraints.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -532,7 +532,7 @@
 
 <p>Task that updates all sequences and identity columns to a minimum value.</p>
 
-<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+<p>One or more <a href="#database-child-element">databases</a> must be specified as child elements.</p>
 
 <table>
 <thead>
@@ -581,7 +581,7 @@
 
 <tr>
 <td>dialect</td>
-<td>This property specifies the underlying DBMS implementation. Supported values are &lsquo;oracle&rsquo;, &lsquo;db2&rsquo;, &lsquo;mysql&rsquo;, &lsquo;hsqldb&rsquo;, &lsquo;postgresql&rsquo;, &lsquo;derby&rsquo; and &lsquo;mssql&rsquo;. DbMaintain will try to detect the dialect from the JDBC url. You can set this property when DbMainain fails to auto-detect the dialect.</td>
+<td>This property specifies the underlying DBMS implementation. Supported values are &lsquo;oracle&rsquo;, &lsquo;db2&rsquo;, &lsquo;mysql&rsquo;, &lsquo;hsqldb&rsquo;, &lsquo;postgresql&rsquo;, &lsquo;derby&rsquo; and &lsquo;mssql&rsquo;. DbMaintain will try to detect the dialect from the JDBC url. You can set this property when DbMaintain fails to auto-detect the dialect.</td>
 </tr>
 
 <tr>
