@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Ant Tasks - DbMaintain</title>
+<meta name="description" content="automatic database updates made easy">
+<meta name="generator" content="Hugo 0.48" />
+<link href="https://dbmaintain.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://dbmaintain.github.io/docs/ant-tasks/">
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://dbmaintain.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://dbmaintain.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>DbMaintain</h1>
+
+ <span class="version">Version 2.7.3</span>
+<a href="https://github.com/DbMaintain/dbmaintain" class="github"><i class="fab fa-github"></i></a>
+<p class="description">automatic database updates made easy</p>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/docs/">Documentation</a></li>
+<li><a href="https://github.com/DbMaintain/dbmaintain/releases">Downloads</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Ant Tasks</h1>
+
+<p>This page gives an overview of the different ant tasks and their attributes.</p>
+
+<ul>
+<li><a href="#createscriptarchive">createScriptArchive</a></li>
+<li><a href="#updatedatabase">updateDatabase</a></li>
+<li><a href="#markErrorScriptPerformed">markErrorScriptPerformed</a></li>
+<li><a href="#markErrorScriptReverted">markErrorScriptReverted</a></li>
+<li><a href="#markDatabaseAsUpToDate">markDatabaseAsUpToDate</a></li>
+<li><a href="#checkScriptUpdates">checkScriptUpdates</a></li>
+<li><a href="#clearDatabase">clearDatabase</a><br /></li>
+<li><a href="#cleanDatabase">cleanDatabase</a></li>
+<li><a href="#disableConstraints">disableConstraints</a></li>
+<li><a href="#updatesequences">updateSequences</a></li>
+</ul>
+
+<h1 id="createscriptarchive">createScriptArchive</h1>
+
+<p>Task that enables creating a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</p>
+
+<p>The created jar file will contain all configuration concerning the scripts in the META-INF folder.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>archiveFileName</td>
+<td>Defines the target name for the generated script archive. This property is required</td>
+</tr>
+
+<tr>
+<td>scriptLocations</td>
+<td>Defines where the scripts can be found that must be added to the jar file. Multiple locations may be configured, separated by comma&rsquo;s. Only folder names can be provided. This property is required.</td>
+</tr>
+
+<tr>
+<td>scriptEncoding</td>
+<td>Encoding to use when reading the script files. Defaults to ISO-8859-1</td>
+</tr>
+
+<tr>
+<td>postProcessingScriptDirectoryName</td>
+<td>Comma separated list of directories and files in which the post processing database scripts are located. Directories in this list are recursively search for files. Defaults to postprocessing</td>
+</tr>
+
+<tr>
+<td>qualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All custom qualifiers that are used in script file names must be declared</td>
+</tr>
+
+<tr>
+<td>patchQualifiers</td>
+<td>The qualifiers to use to determine whether a script is a patch script. Defaults to patch. E.g. 01_#patch_myscript.sql</td>
+</tr>
+
+<tr>
+<td>scriptFileExtensions</td>
+<td>Sets the scriptFileExtensions property, that defines the extensions of the files that are regarded to be database scripts. The extensions should not start with a dot. The default is &lsquo;sql,ddl&rsquo;</td>
+</tr>
+
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;create-jar&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;createScriptArchive</span> <span class="na">archiveFileName=</span><span class="s">&#34;scripts.jar&#34;</span> <span class="na">scriptLocations=</span><span class="s">&#34;scripts&#34;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="updatedatabase">updateDatabase</h1>
+
+<p>Task that updates the database to the latest version.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>scriptLocations</td>
+<td>Defines where the scripts can be found that must be executed on the database. Multiple locations may be configured, separated by comma&rsquo;s. A script location can be a folder or a jar file. This property is required.</td>
+</tr>
+
+<tr>
+<td>scriptEncoding</td>
+<td>Encoding to use when reading the script files. Defaults to ISO-8859-1</td>
+</tr>
+
+<tr>
+<td>postProcessingScriptDirectoryName</td>
+<td>Comma separated list of directories and files in which the post processing database scripts are located. Directories in this list are recursively search for files. Defaults to postprocessing</td>
+</tr>
+
+<tr>
+<td>fromScratchEnabled</td>
+<td>Sets the fromScratchEnabled property, that indicates the database can be recreated from scratch if needed. From-scratch recreation is needed in following cases: <br/>- A script that was already executed has been modified <br/>- A new script has been added with an index number lower than the one of an already executed script <br/>- A script that was already executed has been removed or renamed <br/>If set to false, the DbMaintainer will give an error if one of these situations occurs. The default is false.</td>
+</tr>
+
+<tr>
+<td>autoCreateDbMaintainScriptsTable</td>
+<td>If set to true, the table DBMAINTAIN_SCRIPTS will be created automatically if it does not exist yet. If false, an exception is thrown, indicating how to create the table manually. False by default.</td>
+</tr>
+
+<tr>
+<td>qualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All custom qualifiers that are used in script file names must be declared</td>
+</tr>
+
+<tr>
+<td>patchQualifiers</td>
+<td>The qualifiers to use to determine whether a script is a patch script. Defaults to patch. E.g. 01_#patch_myscript.sql</td>
+</tr>
+
+<tr>
+<td>includedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All included qualifiers must be registered using the qualifiers property. Only scripts which are qualified with one of the included qualifiers will be executed.</td>
+</tr>
+
+<tr>
+<td>excludedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All excluded qualifiers must be registered using the qualifiers property. Scripts qualified with one of the excluded qualifiers will not be executed.</td>
+</tr>
+
+<tr>
+<td>allowOutOfSequenceExecutionOfPatches</td>
+<td>If this property is set to true, a patch script is allowed to be executed even if another script with a higher index was already executed.</td>
+</tr>
+
+<tr>
+<td>cleanDb</td>
+<td>Indicates whether the database should be &lsquo;cleaned&rsquo; before scripts are executed. If true, the records of all database tables, except for the ones listed in &lsquo;dbMaintainer.preserve.<em>&rsquo; or &lsquo;dbMaintain.preserveDataOnly.</em>&rsquo; are deleted before and after executing the scripts. False by default.</td>
+</tr>
+
+<tr>
+<td>disableConstraints</td>
+<td>If set to true, all foreign key and not null constraints of the database are automatically disabled before and after the execution of the scripts. False by default.</td>
+</tr>
+
+<tr>
+<td>updateSequences</td>
+<td>If set to true, all sequences and identity columns are set to a sufficiently high value, so that test data can be inserted without having manually chosen test record IDs clashing with automatically generated keys.</td>
+</tr>
+
+<tr>
+<td>scriptFileExtensions</td>
+<td>Sets the scriptFileExtensions property, that defines the extensions of the files that are regarded to be database scripts. The extensions should not start with a dot. The default is &lsquo;sql,ddl&rsquo;</td>
+</tr>
+
+<tr>
+<td>useLastModificationDates</td>
+<td>Defines whether the last modification dates of the scripts files can be used to determine whether the contents of a script has changed. If set to true, DbMaintain will not look at the contents of scripts that were already executed on the database, if the last modification date is still the same. If it did change, it will first calculate the checksum of the file to verify that the content really changed. Setting this property to true improves performance: if set to false the checksum of every script must be calculated for each run. True by default.</td>
+</tr>
+
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-1">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;update-db&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;updateDatabase</span> <span class="na">scriptLocations=</span><span class="s">&#34;scripts&#34;</span> <span class="na">autoCreateDbMaintainScriptsTable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/updateDatabase&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="markerrorscriptperformed">markErrorScriptPerformed</h1>
+
+<p>Task that indicates that the failed script was manually performed. The script will NOT be run again in the next update. No scripts will be executed by this task.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-2">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;mark-error-script-performed&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;markErrorScriptPerformed&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/markErrorScriptPerformed&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="markerrorscriptreverted">markErrorScriptReverted</h1>
+
+<p>Task that indicates that the failed script was manually reverted. The script will be run again in the next update. No scripts will be executed by this task.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-3">Example</h3>
+
+<pre><code>&lt;target name=&quot;mark-error-script-reverted&quot;&gt;
+    &lt;markErrorScriptReverted&gt;
+        &lt;database driverClassName=&quot;oracle.jdbc.driver.OracleDriver&quot; userName=&quot;user&quot; password=&quot;pass&quot; url=&quot;jdbc:oracle:thin:@//localhost:1521/XE&quot; schemaNames=&quot;SCHEMA&quot;/&gt;
+    &lt;/markErrorScriptReverted&gt;
+&lt;/target&gt;
+</code></pre>
+
+<h1 id="markdatabaseasuptodate">markDatabaseAsUpToDate</h1>
+
+<p>This operation updates the state of the database to indicate that all scripts have been executed, without actually executing them. This can be useful when you want to start using DbMaintain on an existing database, or after having fixed a problem directly on the database.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>scriptLocations</td>
+<td>Defines where the scripts can be found that must be executed on the database. Multiple locations may be configured, separated by comma&rsquo;s. A script location can be a folder or a jar file. This property is required.</td>
+</tr>
+
+<tr>
+<td>autoCreateDbMaintainScriptsTable</td>
+<td>If set to true, the table DBMAINTAIN_SCRIPTS will be created automatically if it does not exist yet. If false, an exception is thrown, indicating how to create the table manually. False by default.</td>
+</tr>
+
+<tr>
+<td>qualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All custom qualifiers that are used in script file names must be declared</td>
+</tr>
+
+<tr>
+<td>includedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All included qualifiers must be registered using the qualifiers property. Only scripts which are qualified with one of the included qualifiers will be executed.</td>
+</tr>
+
+<tr>
+<td>excludedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All excluded qualifiers must be registered using the qualifiers property. Scripts qualified with one of the excluded qualifiers will not be executed.</td>
+</tr>
+
+<tr>
+<td>scriptFileExtensions</td>
+<td>Sets the scriptFileExtensions property, that defines the extensions of the files that are regarded to be database scripts. The extensions should not start with a dot. The default is &lsquo;sql,ddl&rsquo;</td>
+</tr>
+
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-4">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;mark-uptodate&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;markDatabaseAsUpToDate</span> <span class="na">scriptLocations=</span><span class="s">&#34;scripts&#34;</span> <span class="na">autoCreateDbMaintainScriptsTable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/markDatabaseAsUpToDate&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="checkscriptupdates">checkScriptUpdates</h1>
+
+<p>Performs a dry run of the database update. May be used to verify if there are any updates or in a test that fails if it appears that an irregular script update was performed.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>scriptLocations</td>
+<td>Defines where the scripts can be found that must be executed on the database. Multiple locations may be configured, separated by comma&rsquo;s. A script location can be a folder or a jar file. This property is required.</td>
+</tr>
+
+<tr>
+<td>scriptEncoding</td>
+<td>Encoding to use when reading the script files. Defaults to ISO-8859-1</td>
+</tr>
+
+<tr>
+<td>postProcessingScriptDirectoryName</td>
+<td>Comma separated list of directories and files in which the post processing database scripts are located. Directories in this list are recursively search for files. Defaults to postprocessing</td>
+</tr>
+
+<tr>
+<td>fromScratchEnabled</td>
+<td>Sets the fromScratchEnabled property, that indicates the database can be recreated from scratch if needed.</td>
+</tr>
+
+<tr>
+<td></td>
+<td>From-scratch recreation is needed in following cases:</td>
+</tr>
+
+<tr>
+<td></td>
+<td>* A script that was already executed has been modified</td>
+</tr>
+
+<tr>
+<td></td>
+<td>* A new script has been added with an index number lower than the one of an already executed script</td>
+</tr>
+
+<tr>
+<td></td>
+<td>* A script that was already executed has been removed or renamed</td>
+</tr>
+
+<tr>
+<td></td>
+<td>If set to false, the DbMaintainer will give an error if one of these situations occurs. The default is false.</td>
+</tr>
+
+<tr>
+<td>autoCreateDbMaintainScriptsTable</td>
+<td>If set to true, the table DBMAINTAIN_SCRIPTS will be created automatically if it does not exist yet. If false, an exception is thrown, indicating how to create the table manually. False by default.</td>
+</tr>
+
+<tr>
+<td>qualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All custom qualifiers that are used in script file names must be declared</td>
+</tr>
+
+<tr>
+<td>patchQualifiers</td>
+<td>The qualifiers to use to determine whether a script is a patch script. Defaults to patch. E.g. 01_#patch_myscript.sql</td>
+</tr>
+
+<tr>
+<td>includedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All included qualifiers must be registered using the qualifiers property. Only scripts which are qualified with one of the included qualifiers will be executed.</td>
+</tr>
+
+<tr>
+<td>excludedQualifiers</td>
+<td>Optional comma-separated list of script qualifiers. All excluded qualifiers must be registered using the qualifiers property. Scripts qualified with one of the excluded qualifiers will not be executed.</td>
+</tr>
+
+<tr>
+<td>allowOutOfSequenceExecutionOfPatches</td>
+<td>If this property is set to true, a patch script is allowed to be executed even if another script with a higher index was already executed.</td>
+</tr>
+
+<tr>
+<td>scriptFileExtensions</td>
+<td>Sets the scriptFileExtensions property, that defines the extensions of the files that are regarded to be database scripts. The extensions should not start with a dot. The default is &lsquo;sql,ddl&rsquo;</td>
+</tr>
+
+<tr>
+<td>useLastModificationDates</td>
+<td>Defines whether the last modification dates of the scripts files can be used to determine whether the contents of a script has changed. If set to true, DbMaintain will not look at the contents of scripts that were already executed on the database, if the last modification date is still the same. If it did change, it will first calculate the checksum of the file to verify that the content really changed. Setting this property to true improves performance: if set to false the checksum of every script must be calculated for each run. True by default.</td>
+</tr>
+
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-5">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"> <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;dry-run&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;checkScriptUpdates</span> <span class="na">scriptLocations=</span><span class="s">&#34;scripts&#34;</span> <span class="na">autoCreateDbMaintainScriptsTable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/checkScriptUpdates&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="cleardatabase">clearDatabase</h1>
+
+<p>Task that removes all database items like tables, views etc from the database and empties the DBMAINTAIN_SCRIPTS table.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-6">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;clear-db&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;clearDatabase&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/clearDatabase&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="cleandatabase">cleanDatabase</h1>
+
+<p>Task that removes the data of all database tables, except for the DBMAINTAIN_SCRIPTS table.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-7">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;clean-db&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;cleanDatabase</span> <span class="na">configfile=</span><span class="s">&#34;dbmaintain.properties&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/cleanDatabase&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="disableconstraints">disableConstraints</h1>
+
+<p>Task that disables or drops all foreign key and not null constraints.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>configFile</td>
+<td>Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="example-8">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;disable-constraints&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;disableConstraints&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/disableConstraints&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="updatesequences">updateSequences</h1>
+
+<p>Task that updates all sequences and identity columns to a minimum value.</p>
+
+<p>One or more <a href="#Database_child_element">databases</a> must be specified as child elements.</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>lowestAcceptableSequenceValue</td>
+<td>Threshold indicating the minimum value of sequences. If sequences are updated, all sequences having a lower value than this one are set to this value. Defaults to 1000.</td>
+</tr>
+</tbody>
+</table>
+
+<p>| configFile | Optional custom configuration file. Is usually not needed, since all applicable properties are configurable using task attributes. |</p>
+
+<h3 id="example-9">Example</h3>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&#34;update-sequences&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;updateSequences&gt;</span>
+        <span class="nt">&lt;database</span> <span class="na">driverClassName=</span><span class="s">&#34;oracle.jdbc.driver.OracleDriver&#34;</span> <span class="na">userName=</span><span class="s">&#34;user&#34;</span> <span class="na">password=</span><span class="s">&#34;pass&#34;</span> <span class="na">url=</span><span class="s">&#34;jdbc:oracle:thin:@//localhost:1521/XE&#34;</span> <span class="na">schemaNames=</span><span class="s">&#34;SCHEMA&#34;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/updateSequences&gt;</span>
+<span class="nt">&lt;/target&gt;</span></code></pre></div>
+<h1 id="database-child-element">Database child element</h1>
+
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td>An optional name. There can only be 1 database without a name. Can be used in the script name as target database. E.g. 01_@mydb_script.sql</td>
+</tr>
+
+<tr>
+<td>included</td>
+<td>Set to false if script for this database should be skipped. Defaults to true.</td>
+</tr>
+
+<tr>
+<td>dialect</td>
+<td>This property specifies the underlying DBMS implementation. Supported values are &lsquo;oracle&rsquo;, &lsquo;db2&rsquo;, &lsquo;mysql&rsquo;, &lsquo;hsqldb&rsquo;, &lsquo;postgresql&rsquo;, &lsquo;derby&rsquo; and &lsquo;mssql&rsquo;. DbMaintain will try to detect the dialect from the JDBC url. You can set this property when DbMainain fails to auto-detect the dialect.</td>
+</tr>
+
+<tr>
+<td>driverClassName</td>
+<td>The class name of the database driver. Required</td>
+</tr>
+
+<tr>
+<td>url</td>
+<td>The url to the database. Required</td>
+</tr>
+
+<tr>
+<td>userName</td>
+<td>The user name for the database. Required</td>
+</tr>
+
+<tr>
+<td>password</td>
+<td>The password for the database.</td>
+</tr>
+
+<tr>
+<td>schemaNames</td>
+<td>The schema names. The first one is the default schema name for this database. Required.</td>
+</tr>
+</tbody>
+</table>
+<div class="edit-meta">Last updated on 11 Jan 2019 / Published on 11 Jan 2019<br><a href="https://github.com/DbMaintain/docs/edit/master/content/docs/ant-tasks.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/docs/" title="Documentation"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Documentation</a>
+<a class="nav nav-next" href="/docs/command-line/" title="Command Line">Next - Command Line <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://dbmaintain.github.io/">Home</a></li>
+
+<li class="parent"><a href="/docs/">Documentation</a>
+<ul class="sub-menu">
+<li class="active"><a href="/docs/ant-tasks/">Ant Tasks</a></li>
+<li class=""><a href="/docs/command-line/">Command Line</a></li>
+<li class=""><a href="/docs/configuration/">Configuration</a></li>
+<li class=""><a href="/docs/maven-goals/">Maven Goals</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

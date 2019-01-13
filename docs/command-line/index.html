@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Command Line - DbMaintain</title>
+<meta name="description" content="automatic database updates made easy">
+<meta name="generator" content="Hugo 0.48" />
+<link href="https://dbmaintain.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://dbmaintain.github.io/docs/command-line/">
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://dbmaintain.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://dbmaintain.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>DbMaintain</h1>
+
+ <span class="version">Version 2.7.3</span>
+<a href="https://github.com/DbMaintain/dbmaintain" class="github"><i class="fab fa-github"></i></a>
+<p class="description">automatic database updates made easy</p>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/docs/">Documentation</a></li>
+<li><a href="https://github.com/DbMaintain/dbmaintain/releases">Downloads</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Command Line</h1><p>To launch DbMaintain from the command line, create a properties file <code>dbmaintain.properties</code> that configures the location of your scripts and the target database:</p>
+<div class="highlight"><pre class="chroma"><code class="language-properties" data-lang="properties">database.driverClassName=org.hsqldb.jdbcDriver
+database.url=jdbc:hsqldb:mem:testdb
+database.userName=sa
+database.password=
+
+# Comma-separated list of all database schemas used.
+database.schemaNames=PUBLIC</code></pre></div>
+<p>Make sure you&rsquo;ve correctly set <code>JAVA_HOME</code> to your JRE or J2SDK home directory, and set <code>DBMAINTAIN_HOME</code> to the installation directory of dbmaintain. Set <code>DBMAINTAIN_JDBC_DRIVER</code> to the jar file that contains the necessary JDBC driver for your DBMS, or edit the file <code>bin/setJdbcDriver.sh</code> (or .bat) to set <code>JDBC_DRIVER</code> to the correct value. Then execute following command (Replace .sh by .bat if you&rsquo;re using windows)</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">/path/to/dbmaintain/dbmaintain.sh updateDatabase path/to/scriptFolderOrArchive</code></pre></div>
+<p>To use a different config file than <code>dbmaintain.properties</code>, add the parameter -f followed by the config file name. System properties can also be used to configure the command line.</p>
+
+<p>See the <a href="../ant-tasks">ant tasks</a> page for more info on the available operations. The full list of configuration properties can be found on the <a href="../configuration">configuration</a> page.</p>
+<div class="edit-meta">Last updated on 11 Jan 2019 / Published on 11 Jan 2019<br><a href="https://github.com/DbMaintain/docs/edit/master/content/docs/command-line.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/docs/ant-tasks/" title="Ant Tasks"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Ant Tasks</a>
+<a class="nav nav-next" href="/docs/configuration/" title="Configuration">Next - Configuration <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://dbmaintain.github.io/">Home</a></li>
+
+<li class="parent"><a href="/docs/">Documentation</a>
+<ul class="sub-menu">
+<li class=""><a href="/docs/ant-tasks/">Ant Tasks</a></li>
+<li class="active"><a href="/docs/command-line/">Command Line</a></li>
+<li class=""><a href="/docs/configuration/">Configuration</a></li>
+<li class=""><a href="/docs/maven-goals/">Maven Goals</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
