@@ -42,6 +42,18 @@ database.driverClassName=org.hsqldb.jdbcDriver database.url=jdbc:hsqldb:mem:test
     </item>
     
     <item>
+      <title>Docker</title>
+      <link>https://dbmaintain.github.io/docs/docker/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/docker/</guid>
+      <description>DbMaintain Docker container available at https://hub.docker.com/r/dbmaintain/dbmaintain/.
+The container can checkout the DbMaintain configuration files (properties file and sql scripts) from scm system or they can be given to the container by mounting volumes.
+Container&amp;rsquo;s environment variables: SQL_GIT_URL If a git url is given to the container via this variable, the container will clone the git repo to /sql
+SQL_SVN_URL A subversion URL given to the container results in a svn export to /sql</description>
+    </item>
+    
+    <item>
       <title>Maven Goals</title>
       <link>https://dbmaintain.github.io/docs/maven-goals/</link>
       <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
@@ -58,7 +70,8 @@ database.driverClassName=org.hsqldb.jdbcDriver database.url=jdbc:hsqldb:mem:test
       <pubDate>Fri, 11 Jan 2019 17:43:24 +0100</pubDate>
       
       <guid>https://dbmaintain.github.io/downloads/</guid>
-      <description>Do</description>
+      <description>Docker Docker Images availaible from Docker Hub dbmaintain/dbmaintain
+Binaries for Ant, Maven and Command Line Binaries for Ant, Maven and Command Line available from Github</description>
     </item>
     
   </channel>

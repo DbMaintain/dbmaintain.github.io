@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Docker - DbMaintain</title>
+<meta name="description" content="automatic database updates made easy">
+<meta name="generator" content="Hugo 0.48" />
+<link href="https://dbmaintain.github.io/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="https://dbmaintain.github.io/docs/docker/">
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="https://dbmaintain.github.io/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://dbmaintain.github.io/js/functions.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="https://dbmaintain.github.io/js/jquery.backtothetop/jquery.backtothetop.min.js"></script></head>
+<body>
+<div class="container"><header>
+<h1>DbMaintain</h1>
+
+ <span class="version">Version 2.7.3</span>
+<a href="https://github.com/DbMaintain/dbmaintain" class="github"><i class="fab fa-github"></i></a>
+<p class="description">automatic database updates made easy</p>
+
+</header>
+<div class="menu">
+<nav>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/docs/">Documentation</a></li>
+<li><a href="/downloads/">Downloads</a></li></ul>
+</nav>
+</div>
+<div class="content-container">
+<main><h1>Docker</h1>
+
+<p>DbMaintain Docker container available at <a href="https://hub.docker.com/r/dbmaintain/dbmaintain/">https://hub.docker.com/r/dbmaintain/dbmaintain/</a>.</p>
+
+<p>The container can checkout the DbMaintain configuration files (properties file and sql scripts) from scm system or they can be given to the container by mounting volumes.</p>
+
+<h4 id="container-s-environment-variables">Container&rsquo;s environment variables:</h4>
+
+<h5 id="sql-git-url">SQL_GIT_URL</h5>
+
+<p>If a git url is given to the container via this variable, the container will clone the git repo to /sql</p>
+
+<h5 id="sql-svn-url">SQL_SVN_URL</h5>
+
+<p>A subversion URL given to the container results in a svn export to /sql</p>
+
+<h5 id="properties-git-url">PROPERTIES_GIT_URL</h5>
+
+<p>The git repo will be cloned to /dbmaintain</p>
+
+<h5 id="properties-svn-url">PROPERTIES_SVN_URL</h5>
+
+<p>svn export to /dbmaintain</p>
+
+<h5 id="dbmaintain-properties-path">DBMAINTAIN_PROPERTIES_PATH</h5>
+
+<p>If one of the PROPERTIES URLs is given and this variable is not set the container expects the properties file at /dbmaintain/dbmaintain.properties.
+Configure different relative paths with this variable, e.g. DBMAINTAIN_PROPERTIES_PATH=myconfigs/myschema/myschema.properties will use the file /dbmaintain/myconfigs/myschema/myschema.properties</p>
+
+<h5 id="max-retry">MAX_RETRY</h5>
+
+<p>The container will invoke dbmaintain up to MAX_RETRY times if an error occured, waiting 20 seconds between the invocations. Useful e.g. if a database container is starting up and we want to retry until the database is ready.</p>
+
+<h5 id="sleep-success">SLEEP_SUCCESS</h5>
+
+<p>The container will sleep forever if dbmaintain was successful and this variable is set to an arbitrary value. This is useful e.g. when the container is bundled with a database container in a kubernetes pod.</p>
+
+<h5 id="dbmaintain-system-properties">DBMAINTAIN_SYSTEM_PROPERTIES</h5>
+
+<p>Allows to set dbmaintain properties via system properties. Via this variable you can override properties from the properties file, e.g. -Ddatabase.userName=myuser -Ddatabase.password=secret -DdbMaintainer.script.locations=/sql/myschema/</p>
+
+<h4 id="examples">Examples</h4>
+
+<p>using volumes to provide sql and properties</p>
+
+<pre><code>docker run --rm -v &lt;path_schema_dbmaintain.properties&gt;/dbmaintain.properties:/dbmaintain.properties -v &lt;path&gt;/schema/:&lt;dbmaintain.properties#dbMaintainer.script.locations&gt;  dbmaintain/dbmaintain updateDatabase
+</code></pre>
+
+<p>using git to provide sql and properties</p>
+
+<pre><code>docker run --rm -e 'SQL_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbschema.git' -e 'PROPERTIES_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
+</code></pre>
+
+<p>using svn to provide sql and properties</p>
+
+<pre><code>docker run --rm -e 'SQL_SVN_URL=--username myuser --password mysecret http://svn.my-company.de/svn/dbschemas/xyz/tags/0.0.1' -e 'PROPERTIES_SVN_URL=--username myuser --password mysecret http://svn.my-company.de/svn/dbmaintainconfigs/xyz/tags/0.0.1' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
+</code></pre>
+
+<p>override settings from properties file with system properties:</p>
+
+<pre><code>docker run --rm -e 'DBMAINTAIN_SYSTEM_PROPERTIES=-DdbMaintainer.script.locations=/sql/dbmaintain/sql -Ddatabase.url=jdbc:oracle:thin:@localhost:1521:XE -Ddatabase.userName=mydbuser -Ddatabase.password=secretpassword' -e 'SQL_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbschema.git' -e 'PROPERTIES_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
+</code></pre>
+
+<p>retry up to 10 times in case of error</p>
+
+<pre><code>docker run --rm -e 'MAX_RETRY=10' -e 'SQL_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbschema.git' -e 'PROPERTIES_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
+</code></pre>
+
+<p>do not exit but wait forever if successful
+```
+docker run &ndash;rm -e &lsquo;SLEEP_SUCCESS=yes&rsquo; -e &lsquo;MAX_RETRY=10&rsquo; -e &lsquo;SQL_GIT_URL=&ndash;branch 0.0.1 <a href="http://myuser:mypassword@git.my-company.de/dbschema.git'">http://myuser:mypassword@git.my-company.de/dbschema.git'</a> -e &lsquo;PROPERTIES_GIT_URL=&ndash;branch 0.0.1 <a href="http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git'">http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git'</a> -e &lsquo;DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties&rsquo; dbmaintain/dbmaintain updateDatabase</p>
+<div class="edit-meta">Last updated on 11 Jan 2019 / Published on 11 Jan 2019<br><a href="https://github.com/DbMaintain/docs/edit/master/content/docs/docker.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/docs/configuration/" title="Configuration"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Configuration</a>
+<a class="nav nav-next" href="/docs/maven-goals/" title="Maven Goals">Next - Maven Goals <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+<nav>
+<ul>
+<li class=""><a href="https://dbmaintain.github.io/">Home</a></li>
+
+<li class="parent"><a href="/docs/">Documentation</a>
+<ul class="sub-menu">
+<li class=""><a href="/docs/ant-tasks/">Ant Tasks</a></li>
+<li class=""><a href="/docs/command-line/">Command Line</a></li>
+<li class=""><a href="/docs/configuration/">Configuration</a></li>
+<li class="active"><a href="/docs/docker/">Docker</a></li>
+<li class=""><a href="/docs/maven-goals/">Maven Goals</a></li>
+</ul>
+  
+</li>
+</ul>
+</nav>
+
+
+<div class="sidebar-footer"></div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>
