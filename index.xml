@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Overview on DbMaintain</title>
+    <link>https://dbmaintain.github.io/</link>
+    <description>Recent content in Overview on DbMaintain</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 11 Jan 2019 17:41:47 +0100</lastBuildDate>
+    
+	<atom:link href="https://dbmaintain.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ant Tasks</title>
+      <link>https://dbmaintain.github.io/docs/ant-tasks/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/ant-tasks/</guid>
+      <description>This page gives an overview of the different ant tasks and their attributes.
+ createScriptArchive updateDatabase markErrorScriptPerformed markErrorScriptReverted markDatabaseAsUpToDate checkScriptUpdates clearDatabase
+ cleanDatabase disableConstraints updateSequences  createScriptArchive Task that enables creating a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</description>
+    </item>
+    
+    <item>
+      <title>Command Line</title>
+      <link>https://dbmaintain.github.io/docs/command-line/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/command-line/</guid>
+      <description>To launch DbMaintain from the command line, create a properties file dbmaintain.properties that configures the location of your scripts and the target database:
+database.driverClassName=org.hsqldb.jdbcDriver database.url=jdbc:hsqldb:mem:testdb database.userName=sa database.password= # Comma-separated list of all database schemas used. database.schemaNames=PUBLIC Make sure you&amp;rsquo;ve correctly set JAVA_HOME to your JRE or J2SDK home directory, and set DBMAINTAIN_HOME to the installation directory of dbmaintain. Set DBMAINTAIN_JDBC_DRIVER to the jar file that contains the necessary JDBC driver for your DBMS, or edit the file bin/setJdbcDriver.</description>
+    </item>
+    
+    <item>
+      <title>Configuration</title>
+      <link>https://dbmaintain.github.io/docs/configuration/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/configuration/</guid>
+      <description>The full list of properties can be found in the dbmaintain-default.properties file.</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://dbmaintain.github.io/docs/docker/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/docker/</guid>
+      <description>DbMaintain Docker container available at https://hub.docker.com/r/dbmaintain/dbmaintain/.
+The container can checkout the DbMaintain configuration files (properties file and sql scripts) from scm system or they can be given to the container by mounting volumes.
+Container&amp;rsquo;s environment variables: SQL_GIT_URL If a git url is given to the container via this variable, the container will clone the git repo to /sql
+SQL_SVN_URL A subversion URL given to the container results in a svn export to /sql</description>
+    </item>
+    
+    <item>
+      <title>Maven Goals</title>
+      <link>https://dbmaintain.github.io/docs/maven-goals/</link>
+      <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/docs/maven-goals/</guid>
+      <description>This page gives an overview of the different maven goals and their configuration.
+ createScriptArchive updateDatabase markErrorScriptPerformed markErrorScriptReverted
+ markDatabaseAsUpToDate checkScriptUpdates clearDatabase cleanDatabase disableConstraints updateSequences  createScriptArchive Creates a jar file that packages all database update scripts. This jar can then be used as input for the updateDatabase task to apply changes on a target database. This way, database updates can be distributed as a deliverable, just like a war or ear file.</description>
+    </item>
+    
+    <item>
+      <title>Downloads</title>
+      <link>https://dbmaintain.github.io/downloads/</link>
+      <pubDate>Fri, 11 Jan 2019 17:43:24 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/downloads/</guid>
+      <description>Docker Docker Images availaible from Docker Hub dbmaintain/dbmaintain
+Binaries for Ant, Maven and Command Line Binaries for Ant, Maven and Command Line available from Github</description>
+    </item>
+    
+  </channel>
+</rss>

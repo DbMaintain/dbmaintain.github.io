@@ -101,9 +101,10 @@ Configure different relative paths with this variable, e.g. DBMAINTAIN_PROPERTIE
 <pre><code>docker run --rm -e 'MAX_RETRY=10' -e 'SQL_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbschema.git' -e 'PROPERTIES_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
 </code></pre>
 
-<p>do not exit but wait forever if successful
-```
-docker run &ndash;rm -e &lsquo;SLEEP_SUCCESS=yes&rsquo; -e &lsquo;MAX_RETRY=10&rsquo; -e &lsquo;SQL_GIT_URL=&ndash;branch 0.0.1 <a href="http://myuser:mypassword@git.my-company.de/dbschema.git'">http://myuser:mypassword@git.my-company.de/dbschema.git'</a> -e &lsquo;PROPERTIES_GIT_URL=&ndash;branch 0.0.1 <a href="http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git'">http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git'</a> -e &lsquo;DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties&rsquo; dbmaintain/dbmaintain updateDatabase</p>
+<p>do not exit but wait forever if successful</p>
+
+<pre><code>docker run --rm -e 'SLEEP_SUCCESS=yes' -e 'MAX_RETRY=10' -e 'SQL_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbschema.git' -e 'PROPERTIES_GIT_URL=--branch 0.0.1 http://myuser:mypassword@git.my-company.de/dbmaintainproperties.git' -e 'DBMAINTAIN_PROPERTIES_PATH=my_relative_path_in_properties_scm_repo/testschema.properties' dbmaintain/dbmaintain updateDatabase
+</code></pre>
 <div class="edit-meta">Last updated on 11 Jan 2019 / Published on 11 Jan 2019<br><a href="https://github.com/DbMaintain/docs/edit/master/content/docs/docker.md" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/docs/configuration/" title="Configuration"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Configuration</a>
 <a class="nav nav-next" href="/docs/maven-goals/" title="Maven Goals">Next - Maven Goals <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
 </nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
