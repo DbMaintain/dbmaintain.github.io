@@ -12,6 +12,19 @@
     
     
     <item>
+      <title>Acknowledgements</title>
+      <link>https://dbmaintain.github.io/acknowledgements/</link>
+      <pubDate>Fri, 25 Jan 2019 17:47:21 +0100</pubDate>
+      
+      <guid>https://dbmaintain.github.io/acknowledgements/</guid>
+      <description> We would like to thank everyone who contributed to DbMaintain either by writing code, documentation or spreading the word.
+A special thanks goes out to the initiators of DbMaintain who allowed us to fork and maintain it today:
+ Tim Ducheyene Filip Neven Willemijn Wouters  Team See Github.
+Supporters We are glad that the following companies support the development of DbMaintain:
+ red6 enterprise software Hanse Merkur  </description>
+    </item>
+    
+    <item>
       <title>Ant Tasks</title>
       <link>https://dbmaintain.github.io/docs/ant-tasks/</link>
       <pubDate>Fri, 11 Jan 2019 17:47:21 +0100</pubDate>

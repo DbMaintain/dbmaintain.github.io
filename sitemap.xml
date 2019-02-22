@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://dbmaintain.github.io/acknowledgements/</loc>
+    <lastmod>2019-01-25T17:47:21+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://dbmaintain.github.io/docs/ant-tasks/</loc>
     <lastmod>2019-01-11T17:47:21+01:00</lastmod>
   </url>
